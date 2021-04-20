@@ -25,7 +25,7 @@ def login():
     username = request.json.get("username", None)
     password = request.json.get("password", None)
     user = User.query.filter_by(username=username).first()
-    
+
     if user is None:
         return jsonify({"msg": "Bad username or password"}), 401
     else:
@@ -33,7 +33,7 @@ def login():
             return jsonify({"msg": "Bad username or password"}), 401
     
 
-    access_token = create_access_token(identity=username)
+    access_token = create_access_token(identity=username, additional_claims=user.serialize())
     return jsonify(access_token=access_token)
 
 
