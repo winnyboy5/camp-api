@@ -16,5 +16,7 @@ app.config.from_object("app.config.Config")
 
 db = SQLAlchemy(app)
 
+from app.models.user_model import User
+db.create_all()
 
 from app import routes

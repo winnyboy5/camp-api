@@ -1,0 +1,1 @@
+from app.models.account_details_model import AccountDetails
