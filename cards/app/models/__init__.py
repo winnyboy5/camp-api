@@ -1,1 +1,1 @@
-from app.models.account_details_model import AccountDetails
+from app.models.cards_model import Card

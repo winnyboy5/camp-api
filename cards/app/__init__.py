@@ -14,4 +14,7 @@ app.config.from_object("app.config.Config")
 
 db = SQLAlchemy(app)
 
+from app.models.cards_model import Card
+db.create_all()
+
 from app import routes
