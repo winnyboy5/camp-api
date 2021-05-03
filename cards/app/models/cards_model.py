@@ -1,10 +1,12 @@
 from app import db
 from datetime import datetime
+from sqlalchemy.dialects.postgresql import UUID
+import uuid
 
 
 class Card(db.Model):
     __tablename__ = 'camp_cards'
-    cid = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, nullable=False)
     email = db.Column(db.String(120))
     phone = db.Column(db.String(80))
@@ -17,6 +19,7 @@ class Card(db.Model):
     card_type = db.Column(db.String(120), nullable=False)
     primary_color = db.Column(db.String(20), nullable=False)
     text_color = db.Column(db.String(20), nullable=False)
+    review = db.Column(db.Integer, default=0)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 

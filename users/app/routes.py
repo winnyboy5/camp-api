@@ -22,18 +22,18 @@ jwt = JWTManager(app)
 # create_access_token() function is used to actually generate the JWT.
 @app.route("/login", methods=["POST"])
 def login():
-    username = request.json.get("username", None)
+    email = request.json.get("email", None)
     password = request.json.get("password", None)
-    user = User.query.filter_by(username=username).first()
+    user = User.query.filter_by(email=email).first()
 
     if user is None:
-        return jsonify({"msg": "Bad username or password"}), 401
+        return jsonify({"msg": "Bad email or password"}), 401
     else:
         if user.check_password(password) != True:
-            return jsonify({"msg": "Bad username or password"}), 401
+            return jsonify({"msg": "Bad email or password"}), 401
     
 
-    access_token = create_access_token(identity=username, additional_claims=user.serialize())
+    access_token = create_access_token(identity=user.id, additional_claims=user.serialize())
     return jsonify(access_token=access_token)
 
 
@@ -45,3 +45,17 @@ def protected():
     # Access the identity of the current user with get_jwt_identity
     current_user = get_jwt_identity()
     return jsonify(logged_in_as=current_user), 200
+
+
+@app.route("/create", methods=["POST"])
+def create():
+    newUser = User(
+        email = request.json.get("email", None),
+        mobile = request.json.get("mobile", None),
+        country = request.json.get("country", None),
+        password = request.json.get("password", None) 
+    )
+    API.save_changes(newUser)
+    return jsonify(
+        status='saved',
+    ), 200

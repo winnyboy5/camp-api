@@ -22,7 +22,6 @@ def protected():
     claims = get_jwt()
     return jsonify(
         logged_in_as=current_user, 
-        username=claims['username'],
         user_id=claims['id'],
         email=claims['email'],
         mobile=claims['mobile'],
@@ -35,23 +34,29 @@ def protected():
 @app.route("/create", methods=["POST"])
 @jwt_required()
 def create():
-    # Access the identity of the current user with get_jwt_identity
-    claims = get_jwt()
-    newCard = Card(
-        user_id = claims['id'],
-        email = request.json.get("email", None)
-        phone = request.json.get("phone", None)
-        website = request.json.get("website", None)
-        user_card = request.json.get("user_card", None)
-        role = request.json.get("role", None)
-        organization = request.json.get("organization", None)
-        user_image = request.json.get("user_image", None)
-        brand_image = request.json.get("brand_image", None)
-        card_type = request.json.get("card_type", None)
-        primary_color = request.json.get("primary_color", None)
-        text_color = request.json.get("text_color", None)
-    )
-    API.save_changes(newCard)
+    try:
+        # Access the identity of the current user with get_jwt_identity
+        claims = get_jwt()
+        newCard = Card(
+            user_id = claims['id'],
+            email = request.json.get("email", None),
+            phone = request.json.get("phone", None),
+            website = request.json.get("website", None),
+            user_card = request.json.get("user_card", None),
+            role = request.json.get("role", None),
+            organization = request.json.get("organization", None),
+            user_image = request.json.get("user_image", None),
+            brand_image = request.json.get("brand_image", None),
+            card_type = request.json.get("card_type", None),
+            primary_color = request.json.get("primary_color", None),
+            text_color = request.json.get("text_color", None)
+        )
+        API.save_changes(newCard)
+
+    except Exception as e:
+        print("Something Happened: ", e)
+        return e
+        
     return jsonify(
         status='saved',
     ), 200

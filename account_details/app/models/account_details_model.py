@@ -5,12 +5,13 @@ from datetime import datetime
 class AccountDetails(db.Model):
     __tablename__ = 'camp_account_details'
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, unique=True, nullable=False)
+    user_id = db.Column(db.Integer, unique=True ,nullable=False)
     first_name = db.Column(db.String(120), nullable=False)
     last_name = db.Column(db.String(120), nullable=False)
-    is_verified = db.Column(db.Boolean,default=False, nullable=False)
+    is_email_verified = db.Column(db.Boolean,default=False, nullable=False)
+    is_mobile_verified = db.Column(db.Boolean,default=False, nullable=False)
     account_type = db.Column(db.String(120), nullable=False)
-    profile_image_id = db.Column(db.String(120), nullable=False)
+    profile_image_id = db.Column(db.String(120))
     theme_type = db.Column(db.String(120), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
