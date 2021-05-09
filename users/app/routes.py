@@ -52,6 +52,7 @@ def create():
     newUser = User(
         email = request.json.get("email", None),
         mobile = request.json.get("mobile", None),
+        user_name = request.json.get("user_name", None),
         country = request.json.get("country", None),
         password = request.json.get("password", None) 
     )

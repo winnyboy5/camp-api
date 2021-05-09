@@ -1,0 +1,19 @@
+version: '3.8'
+
+networks:
+  micro_network:
+    external:
+      name: micro_network
+
+services:
+  user-api:
+    container_name: cp-users
+    build:
+      context: .
+    ports:
+    - "5000:5000"
+    volumes:
+      - .:/app
+    networks:
+      - micro_network
+    restart: always

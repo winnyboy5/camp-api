@@ -5,3 +5,5 @@ flask_jwt_extended
 psycopg2-binary
 python-dotenv
 boto3
+Flask-Migrate
+Pillow

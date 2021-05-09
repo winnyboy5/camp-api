@@ -5,3 +5,4 @@ flask_jwt_extended
 psycopg2-binary
 Bcrypt-Flask
 python-dotenv
+Flask-Migrate

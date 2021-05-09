@@ -4,6 +4,9 @@ from app.api import API
 from flask import request, jsonify
 from utils.helpers import upload_file_to_s3
 from werkzeug.utils import secure_filename
+from PIL import Image
+import io
+import uuid
 
 
 from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity, get_jwt
@@ -36,18 +39,23 @@ def protected():
 @app.route("/create", methods=["POST"])
 @jwt_required()
 def create():
-    claims = get_jwt()
-    newAcc = AccountDetails(
-        user_id = claims['id'],
-        first_name = request.json.get("first_name", None),
-        last_name = request.json.get("last_name", None),
-        account_type = request.json.get("account_type", None),
-        theme_type = 'light'
-    )
-    API.save_changes(newAcc)
-    return jsonify(
-        status='saved',
-    ), 200
+    try:
+        claims = get_jwt()
+        newAcc = AccountDetails(
+            user_id = claims['id'],
+            first_name = request.json.get("first_name", None),
+            last_name = request.json.get("last_name", None),
+            account_type = request.json.get("account_type", None),
+            theme_type = 'l'
+        )
+        API.save_changes(newAcc)
+        return jsonify(
+            status='saved',
+        ), 200
+    
+    except Exception as e:
+        print("Something Happened: ", e)
+        return e
 
 
 @app.route("/fetch/<uid>", methods=["GET"])
@@ -64,6 +72,7 @@ def fetch(uid):
 @jwt_required()
 def upload_file():
     claims = get_jwt()
+    accUpdate = AccountDetails.query.filter_by(user_id=claims['id']).first()
 
     if "pro_img" not in request.files:
         return "No user_file key in request.files"
@@ -73,16 +82,41 @@ def upload_file():
     if file.filename == "":
         return "Please select a file"
 
+    img_sizes = [(128,128),(256,256)]
+    
+    if accUpdate.profile_image_id is None:
+        uploadId = str(uuid.uuid4().hex)
+    else:
+        uploadId = accUpdate.profile_image_id
+
+    print(file)
 
     if file and file.mimetype == 'image/jpeg':
-        file.filename = secure_filename(file.filename)
-        output   	  = upload_file_to_s3(file, app.config["S3_BUCKET"], claims['id'])
-        return jsonify(
-            img_url=str(output),
-        ), 200
+        for size in img_sizes:
+            image = Image.open(file)
+            image_io = io.BytesIO()
+            image.thumbnail(size, Image.ANTIALIAS)
+            image.save(image_io, 'jpeg', optimize=True)
+            thumbName = '%s_%s.jpg' % (uploadId, str('x'.join(tuple(map( str , size )))))
+            image_io.seek(0)
+            output = upload_file_to_s3(image_io, app.config["S3_BUCKET"], claims['user_name'], thumbName, file.content_type)        
+        
+            accUpdate.profile_image_id = uploadId
+            API.save_changes(accUpdate)
 
-    else:
         return jsonify(
-            msg='Invalid File',
-        ), 200
+            msg="success",
+        ), 200   
+
+    # if file and file.mimetype == 'image/jpeg':
+    #     file.filename = secure_filename(file.filename)
+    #     output   	  = upload_file_to_s3(file, app.config["S3_BUCKET"], claims['user_name'])
+    #     return jsonify(
+    #         img_url=str(output),
+    #     ), 200
+
+    # else:
+    #     return jsonify(
+    #         msg='Invalid File',
+    #     ), 200
 

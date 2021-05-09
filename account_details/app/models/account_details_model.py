@@ -12,7 +12,7 @@ class AccountDetails(db.Model):
     is_mobile_verified = db.Column(db.Boolean,default=False, nullable=False)
     account_type = db.Column(db.String(120), nullable=False)
     profile_image_id = db.Column(db.String(120))
-    theme_type = db.Column(db.String(120), nullable=False)
+    theme_type = db.Column(db.String(1), nullable=False, default='d')
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 

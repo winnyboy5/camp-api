@@ -1,7 +1,5 @@
 from app import db, bcrypt
 from datetime import datetime
-from sqlalchemy.dialects.postgresql import UUID
-import uuid
 
 
 class User(db.Model):
@@ -9,6 +7,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
     mobile = db.Column(db.String(80), unique=True)
+    user_name = db.Column(db.String(120), unique=True, nullable=False)
     password_hash = db.Column(db.String(128))
     country = db.Column(db.String(80), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
@@ -33,6 +32,7 @@ class User(db.Model):
             "id": self.id,
             "email": self.email,
             "mobile": self.mobile,
+            "user_name": self.user_name,
             "country": self.country,
             "created_at": self.created_at.isoformat()+"Z",
             "updated_at": self.updated_at.isoformat()+"Z" }

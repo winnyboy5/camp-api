@@ -7,17 +7,17 @@ s3 = boto3.client(
    aws_secret_access_key=app.config['S3_SECRET']
 )
 
-def upload_file_to_s3(file, bucket_name, user_id,acl="public-read"):
+def upload_file_to_s3(file, bucket_name, user_name, filename, content_type,acl="public-read"):
     
     try:
 
         s3.upload_fileobj(
             file,
             bucket_name,
-            f"cpusers/{user_id}/profile_{user_id}.jpg",
+            f"cpusers/{user_name}/{filename}",
             ExtraArgs={
                 "ACL": acl,
-                "ContentType": file.content_type
+                "ContentType": content_type
             }
         )
 
@@ -25,4 +25,4 @@ def upload_file_to_s3(file, bucket_name, user_id,acl="public-read"):
         print("Something Happened: ", e)
         return e
 
-    return f'{app.config["S3_LOCATION"]}cpusers/{user_id}/profile_{user_id}.jpg'
+    return f'{app.config["S3_LOCATION"]}cpusers/{user_name}/{filename}'
