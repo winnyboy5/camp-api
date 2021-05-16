@@ -96,7 +96,13 @@ def upload_file():
             image = Image.open(file)
             image_io = io.BytesIO()
             image.thumbnail(size, Image.ANTIALIAS)
-            image.save(image_io, 'jpeg', optimize=True)
+            if image.format == "RGB":
+                image.save(image_io, "JPEG", optimize=True) 
+            else:
+                result  = Image.new('RGB', (image.width,image.height), color=(255,255,255))
+                result.paste(image,image)
+                result.save(image_io, "JPEG", optimize=True)
+                
             thumbName = '%s_%s.jpg' % (uploadId, str('x'.join(tuple(map( str , size )))))
             image_io.seek(0)
             output = upload_file_to_s3(image_io, app.config["S3_BUCKET"], claims['user_name'], thumbName, file.content_type)        
