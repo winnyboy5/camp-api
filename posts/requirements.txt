@@ -1,0 +1,9 @@
+flask
+flask-cors
+flask-sqlalchemy
+flask_jwt_extended
+psycopg2-binary
+python-dotenv
+Flask-Migrate
+boto3
+Pillow

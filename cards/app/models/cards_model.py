@@ -35,6 +35,8 @@ class Card(db.Model):
             "website": self.website,
             "base_card": self.base_card,
             "role": self.role,
+            "organization": self.organization,
+            "org_type": self.org_type,
             "user_image": self.user_image,
             "brand_image": self.brand_image,
             "card_type": self.card_type,
