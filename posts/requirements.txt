@@ -7,3 +7,4 @@ python-dotenv
 Flask-Migrate
 boto3
 Pillow
+gunicorn

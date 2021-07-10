@@ -93,7 +93,7 @@ def upload_file():
 
     if file and file.mimetype == 'image/jpeg':
         for size in img_sizes:
-            image = Image.open(file)
+            image = Image.open(file).convert("RGBA")
             image_io = io.BytesIO()
             image.thumbnail(size, Image.ANTIALIAS)
             if image.format == "RGB":

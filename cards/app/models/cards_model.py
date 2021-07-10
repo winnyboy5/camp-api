@@ -15,7 +15,7 @@ class Card(db.Model):
     role = db.Column(db.String(80), nullable=False)
     organization = db.Column(db.String(140))
     org_type = db.Column(db.String(120))
-    user_image = db.Column(db.String(120), nullable=False)
+    user_image = db.Column(db.String(120))
     brand_image = db.Column(db.String(120))
     card_type = db.Column(db.String(120), nullable=False)
     primary_color = db.Column(db.String(20), nullable=False)

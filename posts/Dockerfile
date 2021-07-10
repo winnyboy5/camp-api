@@ -8,6 +8,4 @@ RUN pip install -r requirements.txt
 
 EXPOSE 5003
 
-ENTRYPOINT ["python"]
-
-CMD ["app.py"]
+ENTRYPOINT ["./gunicorn.sh"]

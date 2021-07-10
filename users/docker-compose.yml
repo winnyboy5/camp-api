@@ -17,3 +17,5 @@ services:
     networks:
       - micro_network
     restart: always
+    environment:
+      - PYTHONUNBUFFERED=1

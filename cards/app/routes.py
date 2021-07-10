@@ -111,7 +111,7 @@ def upload_file():
 
     if file and (file.mimetype == 'image/jpeg' or file.mimetype == 'image/png'):
         for size in img_sizes:
-            image = Image.open(file)
+            image = Image.open(file).convert("RGBA")
             
             image_io = io.BytesIO()
             image.thumbnail(size, Image.ANTIALIAS)

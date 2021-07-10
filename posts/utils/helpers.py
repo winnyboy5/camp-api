@@ -14,7 +14,7 @@ def upload_file_to_s3(file, bucket_name, user_name, filename, content_type,acl="
         s3.upload_fileobj(
             file,
             bucket_name,
-            f"cpusers/{user_name}/brand/{filename}",
+            f"cpusers/{user_name}/media/{filename}",
             ExtraArgs={
                 "ACL": acl,
                 "ContentType": content_type
