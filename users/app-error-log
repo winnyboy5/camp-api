@@ -1,0 +1,34 @@
+[2021-07-11 07:41:04 +0000] [8] [INFO] Starting gunicorn 20.1.0
+[2021-07-11 07:41:04 +0000] [8] [INFO] Listening at: http://0.0.0.0:5000 (8)
+[2021-07-11 07:41:04 +0000] [8] [INFO] Using worker: gthread
+[2021-07-11 07:41:04 +0000] [10] [INFO] Booting worker with pid: 10
+[2021-07-11 07:41:04 +0000] [11] [INFO] Booting worker with pid: 11
+[2021-07-11 08:23:43 +0000] [8] [INFO] Starting gunicorn 20.1.0
+[2021-07-11 08:23:43 +0000] [8] [INFO] Listening at: http://0.0.0.0:5000 (8)
+[2021-07-11 08:23:43 +0000] [8] [INFO] Using worker: gthread
+[2021-07-11 08:23:43 +0000] [10] [INFO] Booting worker with pid: 10
+[2021-07-11 08:23:43 +0000] [11] [INFO] Booting worker with pid: 11
+[2021-07-11 08:24:41 +0000] [8] [INFO] Handling signal: term
+[2021-07-11 08:24:42 +0000] [11] [INFO] Worker exiting (pid: 11)
+[2021-07-11 08:24:42 +0000] [10] [INFO] Worker exiting (pid: 10)
+[2021-07-11 08:24:42 +0000] [8] [INFO] Shutting down: Master
+[2021-07-11 08:39:58 +0000] [9] [INFO] Starting gunicorn 20.1.0
+[2021-07-11 08:39:58 +0000] [9] [INFO] Listening at: http://0.0.0.0:5000 (9)
+[2021-07-11 08:39:58 +0000] [9] [INFO] Using worker: gthread
+[2021-07-11 08:39:58 +0000] [11] [INFO] Booting worker with pid: 11
+[2021-07-11 08:39:58 +0000] [12] [INFO] Booting worker with pid: 12
+[2021-07-11 12:23:21 +0000] [9] [INFO] Starting gunicorn 20.1.0
+[2021-07-11 12:23:21 +0000] [9] [INFO] Listening at: http://0.0.0.0:5000 (9)
+[2021-07-11 12:23:21 +0000] [9] [INFO] Using worker: gthread
+[2021-07-11 12:23:22 +0000] [11] [INFO] Booting worker with pid: 11
+[2021-07-11 12:23:22 +0000] [12] [INFO] Booting worker with pid: 12
+[2021-07-11 12:30:36 +0000] [7] [INFO] Starting gunicorn 20.1.0
+[2021-07-11 12:30:36 +0000] [7] [INFO] Listening at: http://0.0.0.0:5000 (7)
+[2021-07-11 12:30:36 +0000] [7] [INFO] Using worker: gthread
+[2021-07-11 12:30:36 +0000] [9] [INFO] Booting worker with pid: 9
+[2021-07-11 12:30:36 +0000] [10] [INFO] Booting worker with pid: 10
+[2021-07-11 14:42:20 +0000] [7] [INFO] Starting gunicorn 20.1.0
+[2021-07-11 14:42:20 +0000] [7] [INFO] Listening at: http://0.0.0.0:5000 (7)
+[2021-07-11 14:42:20 +0000] [7] [INFO] Using worker: gthread
+[2021-07-11 14:42:20 +0000] [9] [INFO] Booting worker with pid: 9
+[2021-07-11 14:42:20 +0000] [10] [INFO] Booting worker with pid: 10

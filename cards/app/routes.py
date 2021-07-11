@@ -90,46 +90,55 @@ def fetch_cards():
 def upload_file():
     claims = get_jwt()
     print(request)
+    
     cardUpdate = Card.query.filter_by(id=request.form.get('card_id')).first()
 
-    if "brand_img" not in request.files:
-        return "No user_file key in request.files"
+    if cardUpdate is not None:
 
-    file    = request.files["brand_img"]
+        if "brand_img" not in request.files:
+            return "No user_file key in request.files"
 
-    if file.filename == "":
-        return "Please select a file"
+        file    = request.files["brand_img"]
 
-    img_sizes = [(128,128),(256,256)]
-    
-    if cardUpdate.brand_image is None:
-        uploadId = str(uuid.uuid4().hex)
-    else:
-        uploadId = cardUpdate.brand_image
+        if file.filename == "":
+            return "Please select a file"
 
-    print(file)
+        img_sizes = [(128,128),(256,256)]
 
-    if file and (file.mimetype == 'image/jpeg' or file.mimetype == 'image/png'):
-        for size in img_sizes:
-            image = Image.open(file).convert("RGBA")
-            
-            image_io = io.BytesIO()
-            image.thumbnail(size, Image.ANTIALIAS)
-            if image.format == "RGB":
-                image.save(image_io, "JPEG", optimize=True) 
-            else:
-                result  = Image.new('RGB', (image.width,image.height), color=(255,255,255))
-                result.paste(image,image)
-                result.save(image_io, "JPEG", optimize=True)                
-            
-            thumbName = '%s_%s.jpg' % (uploadId, str('x'.join(tuple(map( str , size )))))
-            image_io.seek(0)
-            output = upload_file_to_s3(image_io, app.config["S3_BUCKET"], claims['user_name'], thumbName, file.content_type)        
         
-            cardUpdate.brand_image = uploadId
-            API.save_changes(cardUpdate)
+        if cardUpdate.brand_image is None:
+            uploadId = str(uuid.uuid4().hex)
+        else:
+            uploadId = cardUpdate.brand_image
+
+        print(file)
+
+        if file and (file.mimetype == 'image/jpeg' or file.mimetype == 'image/png'):
+            for size in img_sizes:
+                image = Image.open(file).convert("RGBA")
+                
+                image_io = io.BytesIO()
+                image.thumbnail(size, Image.ANTIALIAS)
+                if image.format == "RGB":
+                    image.save(image_io, "JPEG", optimize=True) 
+                else:
+                    result  = Image.new('RGB', (image.width,image.height), color=(255,255,255))
+                    result.paste(image,image)
+                    result.save(image_io, "JPEG", optimize=True)                
+                
+                thumbName = '%s_%s.jpg' % (uploadId, str('x'.join(tuple(map( str , size )))))
+                image_io.seek(0)
+                output = upload_file_to_s3(image_io, app.config["S3_BUCKET"], claims['user_name'], thumbName, file.content_type)        
+            
+                cardUpdate.brand_image = uploadId
+                API.save_changes(cardUpdate)
 
         return jsonify(
             msg="success",
-        ), 200 
+        ), 200
+
+    else:
+        return jsonify(
+            msg="INVALID",
+        ), 200
 

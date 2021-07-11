@@ -113,3 +113,40 @@ TypeError: post_comment_delete() missing 1 required positional argument: 'coid'
 [2021-07-10 12:06:46 +0000] [7] [INFO] Using worker: gthread
 [2021-07-10 12:06:46 +0000] [9] [INFO] Booting worker with pid: 9
 [2021-07-10 12:06:46 +0000] [10] [INFO] Booting worker with pid: 10
+[2021-07-11 13:16:00 +0000] [7] [INFO] Starting gunicorn 20.1.0
+[2021-07-11 13:16:00 +0000] [7] [INFO] Listening at: http://0.0.0.0:5003 (7)
+[2021-07-11 13:16:00 +0000] [7] [INFO] Using worker: gthread
+[2021-07-11 13:16:00 +0000] [9] [INFO] Booting worker with pid: 9
+[2021-07-11 13:16:00 +0000] [10] [INFO] Booting worker with pid: 10
+[2021-07-11 14:23:32 +0000] [7] [INFO] Starting gunicorn 20.1.0
+[2021-07-11 14:23:32 +0000] [7] [INFO] Listening at: http://0.0.0.0:5003 (7)
+[2021-07-11 14:23:32 +0000] [7] [INFO] Using worker: gthread
+[2021-07-11 14:23:32 +0000] [9] [INFO] Booting worker with pid: 9
+[2021-07-11 14:23:32 +0000] [10] [INFO] Booting worker with pid: 10
+[2021-07-11 14:47:10 +0000] [7] [INFO] Starting gunicorn 20.1.0
+[2021-07-11 14:47:10 +0000] [7] [INFO] Listening at: http://0.0.0.0:5003 (7)
+[2021-07-11 14:47:10 +0000] [7] [INFO] Using worker: gthread
+[2021-07-11 14:47:10 +0000] [9] [INFO] Booting worker with pid: 9
+[2021-07-11 14:47:10 +0000] [10] [INFO] Booting worker with pid: 10
+[2021-07-11 14:56:43,601] ERROR in app: Exception on /post [POST]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/site-packages/flask/app.py", line 2070, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.8/site-packages/flask/app.py", line 1516, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "/usr/local/lib/python3.8/site-packages/flask/app.py", line 1535, in finalize_request
+    response = self.make_response(rv)
+  File "/usr/local/lib/python3.8/site-packages/flask/app.py", line 1727, in make_response
+    raise TypeError(
+TypeError: The view function did not return a valid response. The return type must be a string, dict, tuple, Response instance, or WSGI callable, but it was a UnboundLocalError.
+[2021-07-11 14:56:51,124] ERROR in app: Exception on /post [POST]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/site-packages/flask/app.py", line 2070, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.8/site-packages/flask/app.py", line 1516, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "/usr/local/lib/python3.8/site-packages/flask/app.py", line 1535, in finalize_request
+    response = self.make_response(rv)
+  File "/usr/local/lib/python3.8/site-packages/flask/app.py", line 1727, in make_response
+    raise TypeError(
+TypeError: The view function did not return a valid response. The return type must be a string, dict, tuple, Response instance, or WSGI callable, but it was a UnboundLocalError.
