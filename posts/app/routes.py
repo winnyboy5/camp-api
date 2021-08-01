@@ -37,6 +37,17 @@ def protected():
     ), 200
 
 
+@app.route("/fetchposts", methods=["GET"])
+@jwt_required()
+def fetch_cards():
+    claims = get_jwt()
+    posts = Post.query.filter_by(user_id=claims['id']).all()
+    return jsonify(
+        status='SUCCESS',
+        data=[post.serialize() for post in posts],
+    ), 200
+
+
 @app.route("/post", methods=["POST"])
 @jwt_required()
 def upload_file():

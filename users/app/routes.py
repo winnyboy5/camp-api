@@ -6,10 +6,14 @@ from flask import request, jsonify
 from flask_bcrypt import check_password_hash
 
 
-from flask_jwt_extended import create_access_token
-from flask_jwt_extended import get_jwt_identity
-from flask_jwt_extended import jwt_required
-from flask_jwt_extended import JWTManager
+from flask_jwt_extended import (
+    create_access_token, 
+    get_jwt_identity, 
+    jwt_required, 
+    JWTManager,
+    create_refresh_token,
+    get_jwt
+)
 
 from app.models.user_model import User
 
@@ -34,6 +38,23 @@ def login():
     
 
     access_token = create_access_token(identity=user.id, additional_claims=user.serialize())
+    refresh_token = create_refresh_token(identity=user.id, additional_claims=user.serialize())
+    return jsonify(access_token=access_token, refresh_token=refresh_token)
+
+
+# The jwt_refresh_token_required decorator insures a valid refresh
+# token is present in the request before calling this endpoint. We
+# can use the get_jwt_identity() function to get the identity of
+# the refresh token, and use the create_access_token() function again
+# to make a new access token for this identity.
+@app.route('/refresh', methods=['POST'])
+@jwt_required(refresh=True)
+def refresh():
+    current_user = get_jwt_identity()
+    claims = get_jwt()
+
+    identity = get_jwt_identity()
+    access_token = create_access_token(identity=current_user, additional_claims=claims)
     return jsonify(access_token=access_token)
 
 

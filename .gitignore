@@ -110,6 +110,7 @@ ENV/
 env.bak/
 venv.bak/
 migrations/
+app-error-log
 
 # Spyder project settings
 .spyderproject

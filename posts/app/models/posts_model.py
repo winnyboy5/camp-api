@@ -97,6 +97,16 @@ class Post(db.Model):
         return f"Post('{self.content}', '{self.created_at}')"
 
 
+    def serialize(self):
+        return {
+            "pid": self.pid,
+            "user_id": self.user_id,
+            "content": self.content,
+            "media_id": self.media_id,
+            "card_id": self.card_id,
+            "post_type": self.post_type,
+            "created_at": self.created_at.isoformat()+"Z",
+            "updated_at": self.updated_at.isoformat()+"Z" }
 
 
 
